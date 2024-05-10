@@ -13,8 +13,6 @@ class SyllableConstituentLM(nn.Module):
         self.dropout_p = dropout
         self.phoneme_vocab_size = phoneme_vocab_size
 
-        # syllable constituent embedding - nucleus/onset/coda/tone / special (<BOS> / <EOS> / padding)
-        self.constituent_embedding = nn.Embedding(5, self.embedding_size)
         # phoneme embedding
         self.phoneme_embedding = nn.Embedding(phoneme_vocab_size, self.embedding_size)
         self.lstm = nn.LSTM(
@@ -39,18 +37,9 @@ class SyllableConstituentLM(nn.Module):
         # separate phoneme embeddings and constituent embeddings
         #   enables phonemes in different constituent positions (e.g. /p/ in the onset and nucleus) to share information
         x_phon_emb = self.dropout(self.phoneme_embedding(x_phonemes))
-        x_const_emb = self.dropout(self.constituent_embedding(x_constituents))
-        # TODO: experiment with concatenation
-        # x_emb = x_phon_emb + x_const_emb
-
         phon_c_t, phon_h_t = self.lstm(x_phon_emb, h_old)
         phon_c_t = self.dropout(phon_c_t).contiguous()
         phon_logits = self.out(phon_c_t)
-
-        # use the same logits to predict the syllable constituent
-        # const_c_t, const_h_t = self.lstm(x_const_emb, h_old)
-        # const_c_t = self.dropout(const_c_t).contiguous()
-        # const_logits = self.out(const_c_t)
 
         return phon_logits, phon_h_t, phon_logits, phon_h_t
 
