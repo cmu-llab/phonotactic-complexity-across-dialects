@@ -1,0 +1,9 @@
+panphon
+numpy
+pandas
+scikit-learn
+tqdm
+matplotlib
+seaborn==0.9.0
+torch
+git+https://github.com/dmort27/syllabiphon
