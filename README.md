@@ -102,3 +102,7 @@ Ryan Soh-Eun Shim*, Kalvin Chang*, David R. Mortensen. 2024. Phonotactic Complex
   location = {Torino, Italy},
 }
 ```
+
+
+![phon_complex_poster](https://github.com/cmu-llab/phonotactic-complexity-across-dialects/assets/20138687/65bafe61-48b7-431d-afd7-62e0ffc6ff4b)
+
